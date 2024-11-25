@@ -1,14 +1,18 @@
+// Example call: http://localhost:2000/space
+
 // Import required modules
 const express = require("express");
 const axios = require("axios");
-
-// No environment variables are needed from .env file
+const cors = require("cors"); 
 
 const app = express();
 const PORT = process.env.PORT || 2000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Enable CORS for all origins 
+app.use(cors()); 
 
 // Array of space shuttle icons (URLs)
 const shuttleIcons = [
@@ -57,7 +61,7 @@ function getRandomShuttleIcon() {
 }
 
 // Route to fetch data about people in space
-app.get("/space", async (req, res) => {
+app.get("/astronauts", async (req, res) => {
   const url = "http://api.open-notify.org/astros.json"; // API to fetch people in space
 
   console.log("FETCH REQUEST RECEIVED for space data");
